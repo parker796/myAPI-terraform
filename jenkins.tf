@@ -7,10 +7,10 @@ resource docker_image "jenkins_docker" {
       ]
   }
 }
-#ese volumen se descomenta
-# resource docker_volume "jenkins_volume" {
-#   name = "jenkins_home"
-# }
+#ese volumen se descomenta si no hemos creado un volumen
+resource docker_volume "jenkins_volume" {
+   name = "jenkins_home"
+ }
 
 resource "docker_container" "jenkins" {
   name = "jenkins"
@@ -30,7 +30,7 @@ resource "docker_container" "jenkins" {
   }
   volumes {
     volume_name = "jenkins_home"
-    host_path = "/c/Users/emile/Documents/jenkins_home" #esta ruta que cambiamos con el volumen
+    host_path = "/var/jenkins_home" #esta ruta que cambiamos con el volumen
     container_path = "/var/jenkins_home"
     read_only = false
   }
